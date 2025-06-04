@@ -5,5 +5,16 @@ Home
 {% endblock %}
 
 {% block main %}
-<button class="btn btn-primary m-3 p-3">Working!</button>
+
+{% if recipe %}
+<div class="card" style="width: 18rem;">
+    <img src="{{ recipe.strMealThumb }}" alt="{{ recipe.strMeal }}" style="width:250px" class="card-img-top">
+    <div class="card-body">
+        <h2 class="card-title">{{ recipe.strMeal }}</h2>
+        <p class="card-text">Category: {{ recipe.strCategory }}</p>
+        <p class="card-text">Area: {{ recipe.strArea }}</p>
+        <p class="card-text" style="height: 200px; overflow: scroll;">{{ recipe.strInstructions }}</p>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

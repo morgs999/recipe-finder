@@ -20,14 +20,13 @@ def login_required(f):
 
 def fetch(search):
     """Fetch a Recipe"""
-    url = f"TODO{search}"
+    url = f"https://www.themealdb.com/api/json/v1/1/search.php?s={search}"
     try:
         response = requests.get(url)
         response.raise_for_status()  # Raise an error for HTTP error responses
         data = response.json()
-        return {
-            "data": data["data"]
-        }
+        recipe = data.get("meals", [])
+        return recipe[0] if recipe else None
     except requests.RequestException as e:
         print(f"Request error: {e}")
     except (KeyError, ValueError) as e:
