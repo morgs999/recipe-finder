@@ -2,11 +2,35 @@
     margin: 0 auto;
 }
 
+/* Google Fonts */
+.dm-sans-custom {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.fascinate-regular {
+    font-family: "Fascinate", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* MAIN SECTION */
 body {
     background-color: #FF5733;
 }
 
-nav,
-li {
-    color: white;
+.intro-text {
+    color: whitesmoke;
+    text-align: right;
+}
+
+.intro-text h1 {
+    font-family: "Fascinate";
+}
+
+.intro-text h3 {
+    font-family: "DM Sans";
+    font-weight: 300;
 }

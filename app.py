@@ -1,8 +1,8 @@
 """app.py"""
+from sqlite4 import SQLite4
 from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from flask_session import Session
-from helpers import fetch, login_required
-from sqlite4 import SQLite4
+from helpers import fetch, login_required, random
 
 # pip install - requirements.txt
 # pip freeze > requirements.txt
@@ -30,7 +30,7 @@ def after_request(response):
 @app.route('/', methods=["GET", "POST"])
 def index():
     """home page"""
-    default_recipe = fetch("Arrabiata")
+    default_recipe = random()
     return render_template("index.html", recipe=default_recipe)
 
 

@@ -5,17 +5,39 @@ Home
 {% endblock %}
 
 {% block main %}
+<div class="container-sm">
 
-{% if recipe %}
-<div class="card my-3 p-3" style="width: 18rem;">
-    <img src="{{ recipe.strMealThumb }}" alt="{{ recipe.strMeal }}" style="width:250px"
-        class="card-img-top border rounded">
-    <div class="card-body">
-        <h2 class="card-title">{{ recipe.strMeal }}</h2>
-        <h4 class="card-text">Category: {{ recipe.strCategory }}</h4>
-        <h6 class="card-text">Area: {{ recipe.strArea }}</h6>
-        <p class="card-text" style="height: 200px; overflow: scroll;">{{ recipe.strInstructions }}</p>
+    <div class="row align-items-center">
+        {% if recipe %}
+        <div class="card col-md-6 my-md-5 pt-2 order-2 order-md-1">
+            <h2 class="card-title fascinate-regular">{{ recipe.strMeal }}</h2>
+            <img src="{{ recipe.strMealThumb }}" alt="{{ recipe.strMeal }}" class="card-img-top border rounded">
+            <div class="card-body">
+                <h4 class="card-text">Category: {{ recipe.strCategory }}</h4>
+                <h6 class="card-text">Area: {{ recipe.strArea }}</h6>
+                <p class="card-text" style="height: 100px; overflow: scroll;">{{ recipe.strInstructions }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+
+        <div class="col intro-text order-1 order-md-2">
+
+            <form action="/search" method="post" class="p-5">
+                <input class="form-control" autocomplete="off" autofocus name="symbol"
+                    placeholder="Search by Ingredient" type="text">
+                <button type="submit" class="btn btn-info mt-5">Get Cookin'</button>
+            </form>
+            <div class="intro-text  p-5">
+                <h1>The Recipe Finder</h1>
+                <h3>This recipe finder will help you look up simple recipes from the MealDB webiste, with detailed
+                    ingredients,
+                    measurements, and instructions. You can simply search for an ingredient &#40;i.e. carrots,
+                    cucumber&#41;
+                    and
+                    be returned the top 10 recipes to use that ingredient in.</h3>
+            </div>
+        </div>
     </div>
 </div>
-{% endif %}
 {% endblock %}

@@ -32,3 +32,13 @@ def fetch(search):
     except (KeyError, ValueError) as e:
         print(f"Data parsing error: {e}")
     return None
+
+
+def random():
+    """fetch a random recipe"""
+    url = "https://www.themealdb.com/api/json/v1/1/random.php"
+    response = requests.get(url)
+    response.raise_for_status()
+    data = response.json()
+    recipe = data.get("meals", [])
+    return recipe[0] if recipe else None
