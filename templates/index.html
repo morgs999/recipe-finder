@@ -7,12 +7,13 @@ Home
 {% block main %}
 
 {% if recipe %}
-<div class="card" style="width: 18rem;">
-    <img src="{{ recipe.strMealThumb }}" alt="{{ recipe.strMeal }}" style="width:250px" class="card-img-top">
+<div class="card my-3 p-3" style="width: 18rem;">
+    <img src="{{ recipe.strMealThumb }}" alt="{{ recipe.strMeal }}" style="width:250px"
+        class="card-img-top border rounded">
     <div class="card-body">
         <h2 class="card-title">{{ recipe.strMeal }}</h2>
-        <p class="card-text">Category: {{ recipe.strCategory }}</p>
-        <p class="card-text">Area: {{ recipe.strArea }}</p>
+        <h4 class="card-text">Category: {{ recipe.strCategory }}</h4>
+        <h6 class="card-text">Area: {{ recipe.strArea }}</h6>
         <p class="card-text" style="height: 200px; overflow: scroll;">{{ recipe.strInstructions }}</p>
     </div>
 </div>

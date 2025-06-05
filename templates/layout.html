@@ -24,7 +24,7 @@
         <nav class="bg-dark navbar navbar-expand-md">
             <div class="container-fluid">
                 <img src="static/pizza.png" alt="Bootstrap" class="mx-4" width="30" height="24">
-                <a class="navbar-brand text-white" href="#">Recipe Finder</a>
+                <a class="navbar-brand text-white" href="/">Recipe Finder</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -44,6 +44,9 @@
                                 </li>
                                 <li><a class="dropdown-item" href="#">My Recipes</a></li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/card">Recipe Card</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white">Register</a>
@@ -67,8 +70,12 @@
         {% block main %}{% endblock %}
     </main>
 
-    <footer>
-
+    <footer class="bg-dark p-3">
+        <div class="d-flex">
+            <h6 class="text-white">mealDB API</h6>
+            <h6 class="text-white">github</h6>
+            <h6 class="text-white">copyright</h6>
+        </div>
     </footer>
 </body>
 

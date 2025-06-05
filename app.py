@@ -34,9 +34,8 @@ def index():
     return render_template("index.html", recipe=default_recipe)
 
 
-# @app.route('/recipes')
-# def get_recipes():
-#     """Get all recipes from database"""
-#     with get_db() as db:
-#         recipes = db.execute('SELECT * FROM recipes').fetchall()
-#     return jsonify([dict(recipe) for recipe in recipes])
+@app.route('/card', methods=["GET", "POST"])
+def card():
+    """recipe card page"""
+    default_recipe = fetch("Arrabiata")
+    return render_template('card.html', recipe=default_recipe)
