@@ -13,10 +13,11 @@ Home
             <h2 class="card-title fascinate-regular">{{ recipe.strMeal }}</h2>
             <img src="{{ recipe.strMealThumb }}" alt="{{ recipe.strMeal }}" class="card-img-top border rounded">
             <div class="card-body">
-                <h4 class="card-text">Category: {{ recipe.strCategory }}</h4>
-                <h6 class="card-text">Area: {{ recipe.strArea }}</h6>
+                <h4 class="card-text dm-sans-custom">Category: {{ recipe.strCategory }}</h4>
+                <h6 class="card-text dm-sans-custom">Area: {{ recipe.strArea }}</h6>
                 <p class="card-text" style="height: 100px; overflow: scroll;">{{ recipe.strInstructions }}</p>
             </div>
+            <a href="" class="dm-sans-custom">Try this recipe out</a>
         </div>
         {% endif %}
 
@@ -46,6 +47,7 @@ Home
     </div>
 </div>
 <script>
+    // SEARCH RESULT BAR LOGIC
     const searchInput = document.getElementById('ingredient-search')
     const results = document.getElementById('search-results')
 

@@ -34,3 +34,16 @@ body {
     font-family: "DM Sans";
     font-weight: 300;
 }
+
+footer {
+    font-family: "DM Sans";
+}
+
+footer a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+footer a:hover {
+    font-size: 110%;
+}
