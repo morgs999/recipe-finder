@@ -2,7 +2,7 @@
 from sqlite4 import SQLite4
 from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from flask_session import Session
-from helpers import fetch, login_required, random
+from helpers import login_required, fetch, random, default, ingredients, instructions
 
 # pip install - requirements.txt
 # pip freeze > requirements.txt
@@ -35,7 +35,12 @@ def index():
 
 
 @app.route('/card', methods=["GET", "POST"])
+# @login_required
 def card():
     """recipe card page"""
-    default_recipe = fetch("Arrabiata")
-    return render_template('card.html', recipe=default_recipe)
+    if request.method == "POST":
+        recipe = fetch(request.form.get("ingredient"))
+        return render_template("card.html",     recipe=recipe)
+
+    recipe = default()
+    return render_template("card.html", recipe=recipe)

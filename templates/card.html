@@ -6,25 +6,32 @@ Recipe Card
 
 {% block main %}
 
-<div class="card" style="width: 18rem;">
-    <img src="{{recipe.strMealThumb}}" class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">{{recipe.strMeal}}</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s
-            content.</p>
-    </div>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">{{recipe.strIngredient1}}, {{recipe.strMeasure1}}</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-    </ul>
-    <div class="card-body">
-        <a href="{{recipe.strYoutube}}" class="card-link">Youtube Version</a>
+
+<div class="card m-5">
+    <div class="row g-0">
+        <div class="col-md-4 p-2">
+            <img src="{{recipe.strMealThumb}}" class="img-fluid rounded" alt="{{recipe.strMeal}}">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h2 class="card-title fascinate-regular">{{recipe.strMeal}}</h2>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card’s
+                    content.</p>
+                <ul class="list-group list-group-flush row justify-content-start w-25">
+                    <li class="list-group-item">{{recipe.strIngredient1}}, {{recipe.strMeasure1}}</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                </ul>
+
+                <a href="{{recipe.strYoutube}}" class="card-link">Youtube Version</a>
+            </div>
+        </div>
     </div>
 </div>
+
+
 <iframe width="420" height="315" src="{{recipe.strYoutube}}">
 </iframe>
-
-
 
 {% endblock %}

@@ -22,12 +22,17 @@ Home
 
 
         <div class="col intro-text order-1 order-md-2">
-
-            <form action="/search" method="post" class="p-5">
-                <input class="form-control" autocomplete="off" autofocus name="symbol"
-                    placeholder="Search by Ingredient" type="text">
+            <form action="/card" method="post" class="p-5">
+                <div class="position-relative">
+                    <input class="form-control" autocomplete="off" autofocus name="ingredient"
+                        placeholder="Search by Ingredient" type="text" id="ingredient-search">
+                    <div id="search-results" class="position-absolute w-100 bg-white border rounded shadow-sm"
+                        style="top: 100%; left: 0; z-index: 1000; max-height: 300px; overflow-y: auto; display: none;">
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-info mt-5">Get Cookin'</button>
             </form>
+
             <div class="intro-text  p-5">
                 <h1>The Recipe Finder</h1>
                 <h3>This recipe finder will help you look up simple recipes from the MealDB webiste, with detailed
@@ -40,4 +45,62 @@ Home
         </div>
     </div>
 </div>
+<script>
+    const searchInput = document.getElementById('ingredient-search')
+    const results = document.getElementById('search-results')
+
+    searchInput.addEventListener('input', async function () {
+        const query = this.value.trim();
+        if (query.length < 2) {
+            results.style.display = 'none';
+            return;
+        }
+
+        try {
+            const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${query}`);
+
+            const data = await response.json();
+
+            if (data.meals) {
+                const meals = data.meals.sort(() => Math.random() - 0.5).slice(0, 10);
+                // console.log(meals);
+
+                let html = '';
+                meals.forEach(meal => {
+                    // console.log(meal.strMeal)
+                    html += `
+                        <div class="p-2 border-bottom search-result-item text-dark" style="cursor: pointer;" data-meal="${meal.strMeal}">
+                            <div class="d-flex align-items-center">
+                                <img src="${meal.strMealThumb}" alt="${meal.strMeal}" class="rounded me-2" style="width: 40px; height: 40px; object-fit: cover;">
+                                <span>${meal.strMeal}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                results.innerHTML = html;
+                results.style.display = 'block';
+
+                document.querySelectorAll('.search-result-item').forEach(item => {
+                    item.addEventListener('click', function () {
+                        searchInput.value = this.getAttribute('data-meal');
+                        results.style.display = 'none';
+                    })
+                })
+            } else {
+                results.innerHTML = '<div class="p-2 text-muted">No recipes found</div>';
+                results.style.display = 'block';
+            }
+        } catch (error) {
+            // console.error('error fetching recipes: ', error);
+            results.innerHTML = '<div class="row">Error fetching recipes</div>'
+        }
+    })
+
+    document.addEventListener('click', function (e) {
+        if (!searchInput.contains(e.target) && !results.contains(e.target)) {
+            results.style.display = 'none';
+        }
+    });
+</script>
 {% endblock %}
