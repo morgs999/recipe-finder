@@ -16,6 +16,10 @@
     font-style: normal;
 }
 
+.thick-border {
+    border: 10px solid lightgrey;
+}
+
 /* MAIN SECTION */
 body {
     background-color: #FF5733;

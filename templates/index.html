@@ -12,12 +12,17 @@ Home
         <div class="card col-md-6 my-md-5 pt-2 order-2 order-md-1">
             <h2 class="card-title fascinate-regular">{{ recipe.strMeal }}</h2>
             <img src="{{ recipe.strMealThumb }}" alt="{{ recipe.strMeal }}" class="card-img-top border rounded">
-            <div class="card-body">
+            <div class="card-body m-1" style="text-align: left;">
                 <h4 class="card-text dm-sans-custom">Category: {{ recipe.strCategory }}</h4>
                 <h6 class="card-text dm-sans-custom">Area: {{ recipe.strArea }}</h6>
-                <p class="card-text" style="height: 100px; overflow: scroll;">{{ recipe.strInstructions }}</p>
+                <p class="card-text">{{ recipe.strTags }}</p>
             </div>
-            <a href="" class="dm-sans-custom">Try this recipe out</a>
+            <form action="/card" method="post" style="display: inline" name="title">
+                <input type="hidden" name="title" value="{{recipe.strMeal}}">
+                <button type="submit" class="btn btn-link dm-sans-custom p-0" style="text-decoration: none;">Try This
+                    Recipe Out</button>
+
+            </form>
         </div>
         {% endif %}
 

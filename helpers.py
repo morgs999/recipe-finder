@@ -24,8 +24,18 @@ def default():
     return recipe[0] if recipe else None
 
 
-def fetch(search):
-    """Fetch a Recipe"""
+def fetch_by_title(search):
+    """Fetch by Meals Title"""
+    url = f'https://www.themealdb.com/api/json/v1/1/search.php?s={search}'
+    response = requests.get(url)
+    response.raise_for_status()
+    data = response.json()
+    recipe = data.get('meals', [])
+    return recipe[0] if recipe else None
+
+
+def fetch_by_ingredient(search):
+    """Fetch a Recipe by Ingredient Lookup"""
     url = f"https://www.themealdb.com/api/json/v1/1/search.php?s={search}"
     try:
         response = requests.get(url)
@@ -50,11 +60,24 @@ def random():
     return recipe[0] if recipe else None
 
 
-def ingredients():
+def get_ingredients(recipe):
     """separate ingredients and measurements"""
-    return True
+    ingredients = []
+    for i in range(1,21):
+        ingredient = recipe.get(f'strIngredient{i}')
+        measure = recipe.get(f'strMeasure{i}')
+
+        if ingredient and ingredient.strip():
+            ingredients.append({
+                'ingredient': ingredient,
+                'measure': measure
+            })
+    return ingredients
 
 
-def instructions():
+def get_instructions(recipe):
     """separate individual cooking instructions"""
-    return True
+    text = recipe["strInstructions"]
+    lines = text.split(". ")
+    # print(lines[0])
+    return lines

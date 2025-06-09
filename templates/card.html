@@ -10,28 +10,42 @@ Recipe Card
 <div class="card m-5">
     <div class="row g-0">
         <div class="col-md-4 p-2">
-            <img src="{{recipe.strMealThumb}}" class="img-fluid rounded" alt="{{recipe.strMeal}}">
+            <img src="{{recipe.strMealThumb}}" class="img-fluid rounded mt-3" alt="{{recipe.strMeal}}"
+                style="position: sticky; top: 10%; transform: translateY(0);">
         </div>
         <div class="col-md-8">
             <div class="card-body">
                 <h2 class="card-title fascinate-regular">{{recipe.strMeal}}</h2>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card’s
-                    content.</p>
-                <ul class="list-group list-group-flush row justify-content-start w-25">
-                    <li class="list-group-item">{{recipe.strIngredient1}}, {{recipe.strMeasure1}}</li>
-                    <li class="list-group-item">A second item</li>
-                    <li class="list-group-item">A third item</li>
+                <h5 class="card-text">
+                    Category: {{recipe.strCategory}}
+                    <span style="color: #FF5733">| | |</span>
+                    Area:
+                    {{recipe.strArea}}
+                    <span style="color: #FF5733">| | |</span>
+                    Tags:
+                    {{recipe.strTags}}
+                </h5>
+                <h2 class="dm-sans-custom py-3 px-5" style="text-decoration: underline;">Ingredients!</h2>
+                <ul class="list-group list-group-flush border border-info border-3 rounded-bottom border-top-0 p-2"
+                    style="text-align: left; display: block;">
+                    {% for ingredient in ingredients %}
+                    <li class="list-group-item">{{ingredient.ingredient}}, {{ingredient.measure}}</li>
+                    {% endfor %}
                 </ul>
+                <hr class="m-3 thick-border">
+                <h2 class="dm-sans-custom py-3 px-5" style="text-decoration: underline;">Recipe Instructions!</h2>
+                <ul class="list-group list-group-flush overflow-y-scroll border border-info border-3 rounded-bottom border-top-0 p-2"
+                    style="text-align: left; display: block;">
+                    {% for instruction in instructions %}
+                    <li class="list-group-item p-4">{{instruction}}</li>
+                    {% endfor %}
 
-                <a href="{{recipe.strYoutube}}" class="card-link">Youtube Version</a>
+                </ul>
+                <hr class="m-3 thick-border">
+                <a href="{{recipe.strYoutube}}" class="card-link fascinate-regular" target="_blank"
+                    style="text-decoration: none; color: green; font-size: 250%;">Youtube Version</a>
             </div>
         </div>
     </div>
 </div>
-
-
-<iframe width="420" height="315" src="{{recipe.strYoutube}}">
-</iframe>
-
 {% endblock %}
