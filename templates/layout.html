@@ -39,6 +39,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/card">Recipe Card</a>
+                        </li>
+                        {% if session["userid"] %}
                         <li class="nav-item dropdown">
                             <a class="nav-link text-white dropdown-toggle" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -50,17 +54,20 @@
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li><a class="dropdown-item" href="#">My Recipes</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="/logout">Logout</a></li>
                             </ul>
                         </li>
+                        {% else %}
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="/card">Recipe Card</a>
+                            <a href="/register" class="nav-link text-white">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white">Register</a>
+                            <a href="/login" class="nav-link text-white">Log In</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white">Log In</a>
-                        </li>
+                        {% endif %}
                     </ul>
 
                 </div>

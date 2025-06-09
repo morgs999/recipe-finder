@@ -26,7 +26,7 @@ Recipe Card
                     {{recipe.strTags}}
                 </h5>
                 <h2 class="dm-sans-custom py-3 px-5" style="text-decoration: underline;">Ingredients!</h2>
-                <ul class="list-group list-group-flush border border-info border-3 rounded-bottom border-top-0 p-2"
+                <ul class="list-group list-group-flush border border-info border-3 rounded border-end-0 p-2"
                     style="text-align: left; display: block;">
                     {% for ingredient in ingredients %}
                     <li class="list-group-item">{{ingredient.ingredient}}, {{ingredient.measure}}</li>
@@ -34,7 +34,7 @@ Recipe Card
                 </ul>
                 <hr class="m-3 thick-border">
                 <h2 class="dm-sans-custom py-3 px-5" style="text-decoration: underline;">Recipe Instructions!</h2>
-                <ul class="list-group list-group-flush overflow-y-scroll border border-info border-3 rounded-bottom border-top-0 p-2"
+                <ul class="list-group list-group-flush overflow-y-scroll border border-info border-3 rounded border-end-0 p-2"
                     style="text-align: left; display: block;">
                     {% for instruction in instructions %}
                     <li class="list-group-item p-4">{{instruction}}</li>

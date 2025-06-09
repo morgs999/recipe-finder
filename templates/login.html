@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}
+Login
+{% endblock %}
+
+{% block main %}
+<div class="d-flex flex-column justify-content-center align-items-center m-5">
+    <div class="card m-5 p-5">
+        <h2 class="card-title">Log In To Save Recipes and Ingredients!</h2>
+        <div class="card-body">
+            <form action="/login" method="post">
+                <div class="m-5">
+                    <input name="username" placeholder="Username" type="text" class="form-control w-auto">
+                </div>
+                <div class="m-5">
+                    <input name="password" placeholder="Password" type="password" class="form-control w-auto">
+                </div>
+                <button class="btn btn-info m-5" type="submit">Log In</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
