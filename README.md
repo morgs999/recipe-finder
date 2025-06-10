@@ -12,7 +12,7 @@ I built a dynamic recipe finder that utilizes the [Meal Db API](https://www.them
 Python
 <img src="static/flask.svg" alt="drawing" width="50"/>
 Flask
-<img src="static/SQLite.svg" alt="drawing" width="50"/>
+<img src="static/sqlite.svg" alt="drawing" width="50"/>
 SQLite
 <img src="static/html5.svg" alt="drawing" width="50"/>
 HTML
