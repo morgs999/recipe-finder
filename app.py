@@ -3,7 +3,7 @@ import sqlite3
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
-from helpers import login_required, fetch_by_ingredient, fetch_by_title, random, default, get_ingredients, get_instructions
+from helpers import login_required, fetch_by_ingredient, fetch_by_title, fetch_by_id, random, default, get_ingredients, get_instructions
 
 # pip install - requirements.txt
 # pip freeze > requirements.txt
@@ -22,18 +22,26 @@ def get_db():
     return db
 
 
-def init_db():
-    """initialize db connection"""
-    with get_db() as db:
-        db.execute('''
-            CREATE TABLE IF NOT EXISTS users (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                username TEXT UNIQUE NOT NULL,
-                hash TEXT NOT NULL
-            )
-        ''')
-        db.commit()
-init_db()
+# def init_db():
+#     """initialize db connection"""
+#     with get_db() as db:
+#         db.execute('''
+#             CREATE TABLE IF NOT EXISTS users (
+#                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+#                 username TEXT UNIQUE NOT NULL,
+#                 hash TEXT NOT NULL
+#             )
+#         ''')
+#         db.execute('''
+#                    CREATE TABLE IF NOT EXISTS saved_recipes (
+#                    id integer primary key autoincrement,
+#                    user_id integer not null,
+#                    meal_id integer not null,
+#                    foreign key (user_id) references users (id),
+#                    unique (user_id, meal_id))
+#                    ''')
+#         db.commit()
+# init_db()
 
 
 @app.after_request
@@ -71,6 +79,50 @@ def card():
     return render_template("card.html", recipe=recipe, ingredients=ingredients, instructions=instructions)
 
 
+@app.route('/save_recipe', methods=["POST"])
+@login_required
+def save_recipe():
+    """save a recipe from the card page to a users profile"""
+    if request.method == "POST":
+        user = session['userid']
+        meal = request.form.get('meal_id')
+        try:
+            with get_db() as db:
+                db.execute("INSERT into saved_recipes (user_id, meal_id) Values (?, ?)", (user, meal))
+                db.commit()
+                flash("Recipe Saved!")
+        except sqlite3.DatabaseError as e:
+            print(f'Error saving recipe: {e}')
+            flash("Error saving recipe")
+
+    return redirect('/card')
+
+
+
+@app.route('/dashboard', methods=["GET", "POST"])
+@login_required
+def dashboard():
+    """User dashboard with saved recipes"""
+    user = session['userid']
+
+    try:
+        with get_db() as db:
+            meals = db.execute("SELECT meal_id FROM saved_recipes WHERE user_id = ?", (user,)).fetchall()
+            user = db.execute("SELECT username FROM users WHERE id = ?", (user,)).fetchone()
+            username = user['username'] if user else 'User'
+            meal_list = []
+            for meal in meals:
+                meal_list.append(fetch_by_id(meal['meal_id']))
+        return render_template('dashboard.html', meal_list=meal_list, username=username)
+    except sqlite3.DatabaseError as e:
+        print(f"Error loading dash: {e}")
+        flash("Error Loading Your Recipe Cards")
+        return redirect('/')
+
+
+
+
+
 @app.route('/login', methods=["GET", "POST"])
 def login():
     """log a user in"""
@@ -92,7 +144,7 @@ def login():
 
                 session['userid'] = user["id"]
                 return redirect('/')
-        except Exception as e:
+        except sqlite3.DatabaseError as e:
             print(f'Login error: {e}')
             flash("Login failed")
             return render_template('login.html')
@@ -137,7 +189,7 @@ def register():
                 session['userid'] = userid
                 return redirect('/')
 
-        except Exception as e:
+        except sqlite3.DatabaseError as e:
             print(f"Database error: {e}")
             flash("Registration failed. Username might already exist.")
             return render_template("register.html")

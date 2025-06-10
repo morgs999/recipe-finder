@@ -8,7 +8,7 @@ def login_required(f):
     """decorator for logging in auth"""
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if session.get("user_id") is None:
+        if session.get("userid") is None:
             return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
@@ -48,6 +48,16 @@ def fetch_by_ingredient(search):
     except (KeyError, ValueError) as e:
         print(f"Data parsing error: {e}")
     return None
+
+
+def fetch_by_id(id):
+    """fetch a recipe by meal ID"""
+    url = f'https://www.themealdb.com/api/json/v1/1/lookup.php?i={id}'
+    response = requests.get(url)
+    response.raise_for_status()
+    data = response.json()
+    recipe = data.get("meals", [])
+    return recipe[0] if recipe else None
 
 
 def random():

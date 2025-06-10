@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}
+My Recipes
+{% endblock %}
+
+{% block main %}
+
+<h1 class="fascinate-regular">Hey {{username}}!</h1>
+<h4 class="dm-sans-custom">Here are your saved recipes!</h4>
+<div class="container">
+    <div class="row">
+        {% for meal in meal_list %}
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+            <form action="/card" method="post" style="text-decoration: none;">
+                <input type="hidden" name="title" value="{{meal.strMeal}}">
+                <div class="card p-3 m-3" style="cursor: pointer;" onclick="this.parentNode.submit()">
+                    <h2 class="card-title fascinate-regular">
+                        {{meal.strMeal}}
+                    </h2>
+                    <img src="{{ meal.strMealThumb }}" class="card-img-top rounded" alt="{{ meal.strMeal }}">
+                    <h5 class="card-text dm-sans-custom m-2">Category: {{meal.strCategory}}</h5>
+                    <h6 class="card-text dm-sans-custom m-2">Area: {{meal.strArea}}</h6>
+                </div>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

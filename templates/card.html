@@ -10,6 +10,12 @@ Recipe Card
 <div class="card m-5">
     <div class="row g-0">
         <div class="col-md-4 p-2">
+            {% if session["userid"] %}
+            <form action="/save_recipe" method="post" class="m-3">
+                <input type="hidden" name="meal_id" value="{{recipe.idMeal}}">
+                <button class="btn btn-info m-3">Save This Recipe</button>
+            </form>
+            {% endif %}
             <img src="{{recipe.strMealThumb}}" class="img-fluid rounded mt-3" alt="{{recipe.strMeal}}"
                 style="position: sticky; top: 10%; transform: translateY(0);">
         </div>
